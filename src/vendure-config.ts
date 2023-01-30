@@ -9,12 +9,13 @@ import { AssetServerPlugin } from '@vendure/asset-server-plugin';
 import { AdminUiPlugin } from '@vendure/admin-ui-plugin';
 import 'dotenv/config';
 import path from 'path';
+import { ProductRatingPlugin } from './plugins/productRating'
 
 const IS_DEV = process.env.APP_ENV === 'dev';
 
 export const config: VendureConfig = {
     apiOptions: {
-        port: 3000,
+        port: 5000,
         adminApiPath: 'admin-api',
         shopApiPath: 'shop-api',
         // The following options are useful in development mode,
@@ -38,7 +39,7 @@ export const config: VendureConfig = {
             password: process.env.SUPERADMIN_PASSWORD,
         },
         cookieOptions: {
-          secret: process.env.COOKIE_SECRET,
+            secret: process.env.COOKIE_SECRET,
         },
     },
     dbConnectionOptions: {
@@ -59,7 +60,9 @@ export const config: VendureConfig = {
     },
     // When adding or altering custom field definitions, the database will
     // need to be updated. See the "Migrations" section in README.md.
-    customFields: {},
+    customFields: {
+
+    },
     plugins: [
         AssetServerPlugin.init({
             route: 'assets',
@@ -90,5 +93,6 @@ export const config: VendureConfig = {
             route: 'admin',
             port: 3002,
         }),
+        ProductRatingPlugin,
     ],
 };
